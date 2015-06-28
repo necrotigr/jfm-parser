@@ -26,7 +26,7 @@ public class FestsParser implements HtmlParser {
     private Queue<Festival> festivals;
 
     public FestsParser() {
-        this.festivals = new ConcurrentLinkedQueue<>();
+     //   this.festivals = new ConcurrentLinkedQueue<>();
     }
 
     @Override
@@ -52,6 +52,7 @@ public class FestsParser implements HtmlParser {
             // находим все тэги <p>
             Elements paragraphs = doc.select("p");
             RawFestivalAdaptor adaptor = new RawFestivalAdaptor();
+            this.festivals = new ConcurrentLinkedQueue<>();
             int errorCount = 1;
             for (Element p : paragraphs) {
                 try {

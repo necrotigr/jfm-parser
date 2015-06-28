@@ -3,9 +3,9 @@ package ru.necrotigr.experiments.spring.boot.parser;
 import ru.necrotigr.experiments.spring.boot.api.City;
 import ru.necrotigr.experiments.spring.boot.api.Country;
 import ru.necrotigr.experiments.spring.boot.api.Festival;
-import ru.necrotigr.experiments.spring.boot.data.FestCity;
-import ru.necrotigr.experiments.spring.boot.data.FestCountry;
-import ru.necrotigr.experiments.spring.boot.data.JazzFestival;
+import ru.necrotigr.experiments.spring.boot.parser.data.FestCity;
+import ru.necrotigr.experiments.spring.boot.parser.data.FestCountry;
+import ru.necrotigr.experiments.spring.boot.parser.data.JazzFestival;
 
 import java.util.*;
 
@@ -68,7 +68,7 @@ public class RawFestivalAdaptor {
         locationString = locationString.trim();
         String[] parts = locationString.split(",");
         List<String> cityStrs = new LinkedList<>(Arrays.asList(parts));
-        String countryStr = cityStrs.get(cityStrs.size() - 1);
+        String countryStr = cityStrs.get(cityStrs.size() - 1).trim();
         Country country = new FestCountry(countryStr);
         int lastIndex = cityStrs.size() - 1;
         cityStrs.remove(lastIndex);
@@ -86,7 +86,7 @@ public class RawFestivalAdaptor {
         for (String cityStr : cityStrList) {
             FestCity city = new FestCity();
             city.setCountry(country);
-            city.setName(cityStr);
+            city.setName(cityStr.trim());
             resultList.add(city);
         }
 

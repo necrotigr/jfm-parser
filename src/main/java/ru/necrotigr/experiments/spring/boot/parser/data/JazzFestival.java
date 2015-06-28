@@ -1,10 +1,8 @@
-package ru.necrotigr.experiments.spring.boot.data;
+package ru.necrotigr.experiments.spring.boot.parser.data;
 
 import ru.necrotigr.experiments.spring.boot.api.City;
 import ru.necrotigr.experiments.spring.boot.api.Festival;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Collection;
 import java.util.Date;
 
