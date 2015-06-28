@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 import ru.necrotigr.experiments.spring.boot.api.Festival;
 
 
@@ -19,15 +20,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Created by Сергей on 28.06.2015.
  * Парсер событий на jazzfests.net
  */
+@Component
 public class FestsParser implements HtmlParser {
 
     private Queue<Festival> festivals;
 
-
-
     public FestsParser() {
-        this.festivals = new ConcurrentLinkedQueue<Festival>();
-
+        this.festivals = new ConcurrentLinkedQueue<>();
     }
 
     @Override
