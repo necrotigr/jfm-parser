@@ -1,6 +1,7 @@
 package net.jazzfestmap.app.parser.parser.data;
 
 import net.jazzfestmap.app.parser.api.City;
+import net.jazzfestmap.app.parser.api.DateType;
 import net.jazzfestmap.app.parser.api.Festival;
 
 import java.util.Collection;
@@ -17,6 +18,7 @@ public class JazzFestival implements Festival {
     private Date startDate;
     private Date endDate;
     private Collection<City> cities;
+    private DateType dateType;
 
     @Override
     public Date getStartDate() {
@@ -98,5 +100,14 @@ public class JazzFestival implements Festival {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (cities != null ? cities.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public DateType getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(DateType dateType) {
+        this.dateType = dateType;
     }
 }

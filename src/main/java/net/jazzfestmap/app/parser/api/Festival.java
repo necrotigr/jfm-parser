@@ -19,5 +19,7 @@ public interface Festival {
     Date getEndDate();
     String getName();
     Collection<City> getCities();
+    DateType getDateType();
+
 
 }

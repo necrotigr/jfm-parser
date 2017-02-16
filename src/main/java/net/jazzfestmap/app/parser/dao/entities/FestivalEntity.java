@@ -1,6 +1,7 @@
 package net.jazzfestmap.app.parser.dao.entities;
 
 import net.jazzfestmap.app.parser.api.City;
+import net.jazzfestmap.app.parser.api.DateType;
 import net.jazzfestmap.app.parser.api.Festival;
 
 import javax.persistence.*;
@@ -33,18 +34,22 @@ public class FestivalEntity implements Festival {
     @Basic
     private Timestamp endDate;
 
+    @Basic
+    private DateType dateType;
+
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<CityEntity> cities;
 
     public FestivalEntity() {
     }
 
-    public FestivalEntity(String name, String url, Timestamp startDate, Timestamp endDate, Collection<CityEntity> cities) {
+    public FestivalEntity(String name, String url, Timestamp startDate, Timestamp endDate, Collection<CityEntity> cities, DateType dateType) {
         this.name = name;
         this.url = url;
         this.startDate = startDate;
         this.endDate = endDate;
         this.cities = cities;
+        this.dateType = dateType;
     }
 
     @Override
@@ -73,6 +78,11 @@ public class FestivalEntity implements Festival {
         return citiesList;
     }
 
+    @Override
+    public DateType getDateType() {
+        return dateType;
+    }
+
     public static FestivalEntity of(Festival festival) {
         Collection<CityEntity> citiesList = new ArrayList<>();
         for (City city : festival.getCities()) {
@@ -81,6 +91,6 @@ public class FestivalEntity implements Festival {
 
         return new FestivalEntity(festival.getName(), festival.getUrl(),
                 new Timestamp(festival.getStartDate().getTime()), new Timestamp(festival.getEndDate().getTime()),
-                citiesList);
+                citiesList, festival.getDateType());
     }
 }

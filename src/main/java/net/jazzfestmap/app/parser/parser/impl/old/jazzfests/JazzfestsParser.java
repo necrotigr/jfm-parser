@@ -1,6 +1,9 @@
-package net.jazzfestmap.app.parser.parser;
+package net.jazzfestmap.app.parser.parser.impl.old.jazzfests;
 
 import net.jazzfestmap.app.parser.api.Festival;
+import net.jazzfestmap.app.parser.parser.HtmlFestival;
+import net.jazzfestmap.app.parser.parser.HtmlParser;
+import net.jazzfestmap.app.parser.parser.InvalidFestivalFormatException;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,11 +24,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Парсер событий на jazzfests.net
  */
 @Component
-public class FestsParser implements HtmlParser {
+public class JazzfestsParser implements HtmlParser {
 
     private Queue<Festival> festivals;
 
-    public FestsParser() {
+    public JazzfestsParser() {
      //   this.festivals = new ConcurrentLinkedQueue<>();
     }
 

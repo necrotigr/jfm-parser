@@ -1,4 +1,6 @@
-package net.jazzfestmap.app.parser.parser;
+package net.jazzfestmap.app.parser.parser.impl.old.jazzfests;
+
+import net.jazzfestmap.app.parser.parser.RawDate;
 
 import java.util.Date;
 

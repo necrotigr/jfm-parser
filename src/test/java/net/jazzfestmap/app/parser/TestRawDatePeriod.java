@@ -2,7 +2,7 @@ package net.jazzfestmap.app.parser;
 
 import org.junit.Assert;
 import org.junit.Test;
-import net.jazzfestmap.app.parser.parser.RawDatePeriod;
+import net.jazzfestmap.app.parser.parser.impl.old.jazzfests.RawDatePeriod;
 
 import java.util.Calendar;
 import java.util.Date;

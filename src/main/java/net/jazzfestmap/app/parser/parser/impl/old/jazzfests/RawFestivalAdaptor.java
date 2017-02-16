@@ -1,11 +1,14 @@
-package net.jazzfestmap.app.parser.parser;
+package net.jazzfestmap.app.parser.parser.impl.old.jazzfests;
 
+import net.jazzfestmap.app.parser.parser.FestivalAdaptor;
+import net.jazzfestmap.app.parser.parser.HtmlFestival;
 import net.jazzfestmap.app.parser.parser.data.FestCountry;
 import net.jazzfestmap.app.parser.api.City;
 import net.jazzfestmap.app.parser.api.Country;
 import net.jazzfestmap.app.parser.api.Festival;
 import net.jazzfestmap.app.parser.parser.data.FestCity;
 import net.jazzfestmap.app.parser.parser.data.JazzFestival;
+import net.jazzfestmap.app.parser.parser.impl.old.jazzfests.RawDatePeriod;
 
 import java.util.*;
 
@@ -13,7 +16,7 @@ import java.util.*;
  * Created by Сергей on 28.06.2015.
  *
  */
-public class RawFestivalAdaptor {
+public class RawFestivalAdaptor implements FestivalAdaptor {
 
     public Festival convert(HtmlFestival htmlFestival) {
         JazzFestival festival = new JazzFestival();
