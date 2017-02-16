@@ -5,6 +5,8 @@ import net.jazzfestmap.app.parser.api.Festival;
 import net.jazzfestmap.app.parser.parser.FestivalAdaptor;
 import net.jazzfestmap.app.parser.parser.HtmlFestival;
 import net.jazzfestmap.app.parser.parser.data.JazzFestival;
+import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date.*;
+import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.location.*;
 
 import java.util.Collection;
 import java.util.Date;
@@ -14,26 +16,43 @@ import java.util.Date;
  */
 public class APassion4JazzFestAdaptor implements FestivalAdaptor {
 
+    private DateStrTypeDetector dateStrTypeDetector = new DateStrTypeDetector();
+
+    private LocationStrTypeDetector locationStrTypeDetector = new LocationStrTypeDetector();
+
+
     @Override
     public Festival convert(HtmlFestival htmlFestival) {
         JazzFestival festival = new JazzFestival();
+        try {
 
-        festival.setUrl(htmlFestival.getSiteUrl()); // ссылка всегда правильная (наверняка)
-        festival.setName(htmlFestival.getName());
+            festival.setUrl(htmlFestival.getSiteUrl()); // ссылка всегда правильная (наверняка)
+            festival.setName(htmlFestival.getName());
 
-        Date[] dates = parseDateString(htmlFestival.getDates());
-        festival.setStartDate(dates[0]);
-        festival.setEndDate(dates[1]);
-        festival.setCities(parseLocationString(htmlFestival.getLocation()));
+            DateRange dates = parseDateString(htmlFestival.getDates());
+            festival.setStartDate(dates.getStartDate());
+            festival.setEndDate(dates.getEndDate());
+            festival.setCities(parseLocationString(htmlFestival.getLocation()));
 
-        return festival;
+            return festival;
+        } catch (UnsupportedLocationStrTypeException e) {
+            e.printStackTrace();
+            return festival;
+        } catch (UnsupportedDateStrTypeException e) {
+            e.printStackTrace();
+            return festival;
+        }
     }
 
-    private Collection<City> parseLocationString(String location) {
-        return null;
+    private Collection<City> parseLocationString(String location) throws UnsupportedLocationStrTypeException {
+        LocationStrType locationStrType = locationStrTypeDetector.detect(location);
+        LocationStrParser parser = LocationStrTypeFactory.create(locationStrType);
+        return parser.parse(location);
     }
 
-    private Date[] parseDateString(String dates) {
-        return new Date[0];
+    private DateRange parseDateString(String dates) throws UnsupportedDateStrTypeException {
+        DateStrType dateStrType = dateStrTypeDetector.detect(dates);
+        DateStrParser parser = DateStrParserFactory.createParser(dateStrType);
+        return parser.parse(dates);
     }
 }
