@@ -71,7 +71,7 @@ public class APassion4JazzParser  implements HtmlParser {
 
     public HtmlFestival readEventItem(Element li) throws InvalidFestivalFormatException {
         HtmlFestival result = new HtmlFestival();
-        Elements link = li.select("a");
+        Element link = li.select("a").first();
         String festUrl = link.attr("href");
         result.setSiteUrl(festUrl);
 
@@ -85,7 +85,7 @@ public class APassion4JazzParser  implements HtmlParser {
         String dateStr = dateHtmlParts[dateHtmlParts.length-1].replace("-", "").trim();
         result.setDates(dateStr);
 
-        String locationStr = parts[1].trim();
+        String locationStr = parts[1].trim().split("<")[0].split("&")[0].trim();
         result.setLocation(locationStr);
 
         return result;
