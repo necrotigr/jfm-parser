@@ -9,7 +9,7 @@ import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date.DateStrParser;
 public class CancelledParser implements DateStrParser {
 
     @Override
-    public DateRange parse(String dateStr) {
+    public DateRange parse(String dateStr, String month, String year) {
         return null;
     }
 }

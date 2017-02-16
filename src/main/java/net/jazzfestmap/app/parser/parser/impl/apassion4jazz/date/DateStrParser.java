@@ -7,5 +7,5 @@ import java.util.Date;
  */
 public interface DateStrParser {
 
-    DateRange parse(String dateStr);
+    DateRange parse(String dateStr, String month, String year);
 }

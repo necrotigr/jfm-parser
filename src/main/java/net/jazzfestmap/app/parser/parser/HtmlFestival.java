@@ -11,6 +11,24 @@ public class HtmlFestival {
     private String name;
     private String dates;
     private String location;
+    private String heldMonth;
+    private String heldYear;
+
+    public String getHeldMonth() {
+        return heldMonth;
+    }
+
+    public void setHeldMonth(String heldMonth) {
+        this.heldMonth = heldMonth;
+    }
+
+    public String getHeldYear() {
+        return heldYear;
+    }
+
+    public void setHeldYear(String heldDate) {
+        this.heldYear = heldDate;
+    }
 
     public String getName() {
         return name;

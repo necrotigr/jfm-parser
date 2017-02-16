@@ -52,6 +52,8 @@ public class APassion4JazzParser  implements HtmlParser {
             for (Element p : festListItems) {
                 try {
                     HtmlFestival htmlFestival = readEventItem(p);
+                    htmlFestival.setHeldMonth(""); // TODO
+                    htmlFestival.setHeldYear(""); // TODO
                     System.out.println(htmlFestival);
                     Festival festival = adaptor.convert(htmlFestival);
                     festivals.add(festival);

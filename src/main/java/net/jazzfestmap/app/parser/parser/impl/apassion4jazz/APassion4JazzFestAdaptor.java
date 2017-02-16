@@ -9,7 +9,6 @@ import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date.*;
 import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.location.*;
 
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by Сергей on 16.02.2017.
@@ -29,7 +28,7 @@ public class APassion4JazzFestAdaptor implements FestivalAdaptor {
             festival.setUrl(htmlFestival.getSiteUrl()); // ссылка всегда правильная (наверняка)
             festival.setName(htmlFestival.getName());
 
-            DateRange dates = parseDateString(htmlFestival.getDates());
+            DateRange dates = parseDateString(htmlFestival.getDates(), htmlFestival.getHeldMonth(), htmlFestival.getHeldYear());
             festival.setStartDate(dates.getStartDate());
             festival.setEndDate(dates.getEndDate());
             festival.setCities(parseLocationString(htmlFestival.getLocation()));
@@ -50,9 +49,9 @@ public class APassion4JazzFestAdaptor implements FestivalAdaptor {
         return parser.parse(location);
     }
 
-    private DateRange parseDateString(String dates) throws UnsupportedDateStrTypeException {
+    private DateRange parseDateString(String dates, String month, String year) throws UnsupportedDateStrTypeException {
         DateStrType dateStrType = dateStrTypeDetector.detect(dates);
         DateStrParser parser = DateStrParserFactory.createParser(dateStrType);
-        return parser.parse(dates);
+        return parser.parse(dates, month, year);
     }
 }
