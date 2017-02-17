@@ -5,5 +5,5 @@ package net.jazzfestmap.app.parser.api;
  */
 public enum DateType {
 
-    TBA, CANCELLED
+    TBA, CANCELLED, NORMAL
 }

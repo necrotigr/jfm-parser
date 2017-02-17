@@ -1,5 +1,7 @@
 package net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date;
 
+import net.jazzfestmap.app.parser.api.DateType;
+
 import java.time.Month;
 import java.time.Year;
 import java.util.Date;
@@ -16,10 +18,19 @@ public class DateRange {
     private Integer startDay;
     private Integer endDay;
     private Year year;
+    private DateType dateType;
 
     public DateRange(Month startMonth, Year year) {
         this.startMonth = startMonth;
         this.year = year;
+    }
+
+    public DateType getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(DateType dateType) {
+        this.dateType = dateType;
     }
 
     public Year getYear() {
