@@ -63,7 +63,7 @@ public class APassion4JazzParser  implements HtmlParser {
                 }
             }
 
-            System.out.print(String.format("Parsed %d festivals, errors = %d", festivals.size(), errorCount));
+            System.out.print(String.format("Parsed %d festivals, errors = %d\n", festivals.size(), errorCount));
 
             return festivals;
         } catch (IOException e) {

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  *
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "url", "startDate", "endDate"}))
 public class FestivalEntity implements Festival {
 
     @Id
@@ -76,6 +77,10 @@ public class FestivalEntity implements Festival {
     public Collection<City> getCities() {
         Collection<City> citiesList = cities.stream().collect(Collectors.toList());
         return citiesList;
+    }
+
+    public Collection<CityEntity> getCityEntities() {
+        return cities;
     }
 
     @Override

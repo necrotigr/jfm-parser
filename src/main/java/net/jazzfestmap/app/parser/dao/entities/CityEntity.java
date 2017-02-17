@@ -17,6 +17,7 @@ public class CityEntity implements City {
     private Long id;
 
     @Basic
+    @Column(unique = true)
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)

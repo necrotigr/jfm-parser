@@ -22,8 +22,8 @@ public class CityRegionCountryParser implements LocationStrParser {
     @Override
     public Collection<City> parse(String locationStr) {
         String[] parts = locationStr.split(",");
-        String cityStr = parts[0] + parts[1];
-        String countryStr = parts[2];
+        String cityStr = parts[0].trim() + ", " + parts[1].trim();
+        String countryStr = parts[2].trim();
         Country country = new FestCountry(countryStr);
         FestCity city = new FestCity();
         city.setName(cityStr);

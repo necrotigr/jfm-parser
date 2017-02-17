@@ -16,6 +16,7 @@ public class CountryEntity implements Country {
     private Long id;
 
     @Basic
+    @Column(unique = true)
     private String name;
 
     public CountryEntity() {

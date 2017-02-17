@@ -1,6 +1,6 @@
 package net.jazzfestmap.app.parser.controllers;
 
-import net.jazzfestmap.app.parser.services.SaverService;
+import net.jazzfestmap.app.parser.dao.services.SaverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
