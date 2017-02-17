@@ -26,8 +26,8 @@ public class HtmlFestival {
         return heldYear;
     }
 
-    public void setHeldYear(String heldDate) {
-        this.heldYear = heldDate;
+    public void setHeldYear(String heldYear) {
+        this.heldYear = heldYear;
     }
 
     public String getName() {

@@ -40,8 +40,11 @@ public class APassion4JazzParser  implements HtmlParser {
             String html = IOUtils.toString(inputStream, Charset.forName("windows-1252"));
             Document doc = Jsoup.parse(html);
 
-            // TODO определяем дату страницы - она может НЕ соответствовать текущему году
+            // определяем дату страницы - она может НЕ соответствовать текущему году
             //  <div class="bop festMonths">January 2017</div>
+            Element dateEl = doc.select("div.festMonths").first();
+            String heldMonth = dateEl.text().split(" ")[0];
+            String heldYear = dateEl.text().split(" ")[1];
 
             // находим основной список событий
             Elements festList = doc.select("ul.fest");
@@ -52,8 +55,8 @@ public class APassion4JazzParser  implements HtmlParser {
             for (Element p : festListItems) {
                 try {
                     HtmlFestival htmlFestival = readEventItem(p);
-                    htmlFestival.setHeldMonth(""); // TODO
-                    htmlFestival.setHeldYear(""); // TODO
+                    htmlFestival.setHeldMonth(heldMonth);
+                    htmlFestival.setHeldYear(heldYear);
                     System.out.println(htmlFestival);
                     Festival festival = adaptor.convert(htmlFestival);
                     festivals.add(festival);
