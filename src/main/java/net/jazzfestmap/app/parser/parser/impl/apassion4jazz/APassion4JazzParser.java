@@ -28,8 +28,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Component("aPassion4JazzParser")
 public class APassion4JazzParser  implements HtmlParser {
 
-    private Queue<Festival> festivals;
-
     public APassion4JazzParser() {
     }
 
@@ -50,7 +48,7 @@ public class APassion4JazzParser  implements HtmlParser {
             Elements festList = doc.select("ul.fest");
             Elements festListItems = festList.select("li");
             FestivalAdaptor adaptor = new APassion4JazzFestAdaptor();
-            this.festivals = new ConcurrentLinkedQueue<>();
+            Queue<Festival> festivals = new ConcurrentLinkedQueue<>();
             int errorCount = 1;
             for (Element p : festListItems) {
                 try {

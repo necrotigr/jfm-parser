@@ -26,10 +26,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Component
 public class JazzfestsParser implements HtmlParser {
 
-    private Queue<Festival> festivals;
-
     public JazzfestsParser() {
-     //   this.festivals = new ConcurrentLinkedQueue<>();
     }
 
     @Override
@@ -55,7 +52,7 @@ public class JazzfestsParser implements HtmlParser {
             // находим все тэги <p>
             Elements paragraphs = doc.select("p");
             RawFestivalAdaptor adaptor = new RawFestivalAdaptor();
-            this.festivals = new ConcurrentLinkedQueue<>();
+            Queue<Festival> festivals = new ConcurrentLinkedQueue<>();
             int errorCount = 1;
             for (Element p : paragraphs) {
                 try {
