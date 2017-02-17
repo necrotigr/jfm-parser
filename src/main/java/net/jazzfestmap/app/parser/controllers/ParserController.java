@@ -14,10 +14,20 @@ public class ParserController {
     @Autowired
     private SaverService saverService;
 
-    @RequestMapping("parse")
+
+    @RequestMapping("parseOld")
     @ResponseBody
-    String parse(@RequestParam Integer month, @RequestParam Integer year) {
-        saverService.save(month, year);
+    String parseOld(@RequestParam Integer month, @RequestParam Integer year) {
+        saverService.fetchAndSave("http://jazzfests.net/dates/?month=%d&year=%d", month, year);
         return "ok";
     }
+
+    @RequestMapping("parse")
+    @ResponseBody
+    String parseNew(@RequestParam(required = false) Integer month) {
+        String urlTemplate = "https://www.apassion4jazz.net/festivals-%d.html";
+        saverService.fetchAndSave(urlTemplate, month);
+        return "ok";
+    }
+
 }

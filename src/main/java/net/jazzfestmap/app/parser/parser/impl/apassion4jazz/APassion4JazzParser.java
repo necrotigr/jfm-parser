@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * Парсер для событий apassion4jazz.net
  */
-@Component
+@Component("aPassion4JazzParser")
 public class APassion4JazzParser  implements HtmlParser {
 
     private Queue<Festival> festivals;
