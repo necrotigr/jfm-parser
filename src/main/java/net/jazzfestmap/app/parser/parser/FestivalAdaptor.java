@@ -7,5 +7,5 @@ import net.jazzfestmap.app.parser.api.Festival;
  */
 public interface FestivalAdaptor {
 
-    Festival convert(HtmlFestival htmlFestival);
+    Festival convert(HtmlFestival htmlFestival) throws InvalidFestivalFormatException;
 }

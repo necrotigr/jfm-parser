@@ -22,7 +22,7 @@ public class AmpersandNextMonthParser implements DateStrParser {
     public DateRange parse(String dateStr, String month, String year) {
         String[] parts = dateStr.split("&");
         int startDay = Integer.valueOf(parts[0].trim());
-        Month endMonth = Month.valueOf(parts[1].trim().split(" ")[0]);
+        Month endMonth = Month.valueOf(parts[1].trim().split(" ")[0].toUpperCase());
         int endDay = Integer.valueOf(parts[1].trim().split(" ")[1]);
 
         DateRange dateRange = new DateRange(Month.valueOf(month), Year.parse(year));

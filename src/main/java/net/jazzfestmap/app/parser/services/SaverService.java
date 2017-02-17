@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -58,10 +57,15 @@ public class SaverService {
 
             //FIXME почему-то стал загружать только 8 фестивалей с 1 ошибкой
             for (Festival festival : festivals) {
-                FestivalEntity festivalEntity = FestivalEntity.of(festival);
-                festivalRepository.save(festivalEntity);
+                try {
+                    FestivalEntity festivalEntity = FestivalEntity.of(festival);
+                    festivalRepository.save(festivalEntity);
+                } catch (Exception e) {
+                    System.err.println("Can't save festival: " + festival);
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

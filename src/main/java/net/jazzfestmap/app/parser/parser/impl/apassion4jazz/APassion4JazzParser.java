@@ -41,7 +41,7 @@ public class APassion4JazzParser  implements HtmlParser {
             // определяем дату страницы - она может НЕ соответствовать текущему году
             //  <div class="bop festMonths">January 2017</div>
             Element dateEl = doc.select("div.festMonths").first();
-            String heldMonth = dateEl.text().split(" ")[0];
+            String heldMonth = dateEl.text().split(" ")[0].toUpperCase();
             String heldYear = dateEl.text().split(" ")[1];
 
             // находим основной список событий
@@ -86,6 +86,10 @@ public class APassion4JazzParser  implements HtmlParser {
         String dateHtml = parts[0].trim();
         String[] dateHtmlParts = dateHtml.split(">");
         String dateStr = dateHtmlParts[dateHtmlParts.length-1].replace("-", "").trim();
+        if (dateStr.contains("cancelled"))
+            dateStr = "cancelled";
+        else
+            dateStr = dateStr.replace("&amp;", "&"); // TODO заменить на что-то более предпочтительное
         result.setDates(dateStr);
 
         String locationStr = parts[1].trim().split("<")[0].split("&")[0].trim();

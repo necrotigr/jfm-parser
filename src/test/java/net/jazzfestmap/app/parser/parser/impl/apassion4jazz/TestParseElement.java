@@ -49,4 +49,29 @@ public class TestParseElement {
         Assert.assertEquals("23 to 25", htmlFestival.getDates());
         Assert.assertEquals("Moscow, ID, USA", htmlFestival.getLocation());
     }
+
+    @Test
+    public void parseElementWithCancelled() throws InvalidFestivalFormatException {
+        String sample = "<li><a href=\"http://www.thesmoothjazzcruise.com/2015\" target=\"_new\" rel=\"nofollow\">Smooth Jazz Cruise</a> - <div class=\"red\">cancelled</div><br>" +
+                "              Fort Lauderdale, FL, USA </li>";
+        APassion4JazzParser parser = new APassion4JazzParser();
+        HtmlFestival htmlFestival = parser.readEventItem(readLi(sample));
+        assertNotNull(htmlFestival);
+        Assert.assertEquals("Smooth Jazz Cruise", htmlFestival.getName());
+        Assert.assertEquals("http://www.thesmoothjazzcruise.com/2015", htmlFestival.getSiteUrl());
+        Assert.assertEquals("cancelled", htmlFestival.getDates());
+        Assert.assertEquals("Fort Lauderdale, FL, USA", htmlFestival.getLocation());
+    }
+
+    @Test
+    public void parseElementWithTBA() throws InvalidFestivalFormatException {
+        String sample = "<li><a href=\"http://www.zadymka.pl/\" target=\"_new\" rel=\"nofollow\">Lotos Jazz Festival</a> - TBA<br>Bielsko-Biala, Poland </li>";
+        APassion4JazzParser parser = new APassion4JazzParser();
+        HtmlFestival htmlFestival = parser.readEventItem(readLi(sample));
+        assertNotNull(htmlFestival);
+        Assert.assertEquals("Lotos Jazz Festival", htmlFestival.getName());
+        Assert.assertEquals("http://www.zadymka.pl/", htmlFestival.getSiteUrl());
+        Assert.assertEquals("TBA", htmlFestival.getDates());
+        Assert.assertEquals("Bielsko-Biala, Poland", htmlFestival.getLocation());
+    }
 }

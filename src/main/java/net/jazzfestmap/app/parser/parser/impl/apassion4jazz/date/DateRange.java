@@ -2,8 +2,11 @@ package net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date;
 
 import net.jazzfestmap.app.parser.api.DateType;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,8 +16,6 @@ public class DateRange {
 
     private Month startMonth;
     private Month endMonth;
-    private Date startDate;
-    private Date endDate;
     private Integer startDay;
     private Integer endDay;
     private Year year;
@@ -74,22 +75,20 @@ public class DateRange {
     }
 
     public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        if (dateType == DateType.CANCELLED  || dateType == DateType.TBA)
+            return new Date(0);
+        int day = (startDay == null) ? endDay : startDay;
+        LocalDate localDate = LocalDate.of(year.getValue(), startMonth, day);
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     public Date getEndDate() {
-        return endDate;
+        if (dateType == DateType.CANCELLED  || dateType == DateType.TBA)
+            return new Date(0);
+        int day = (endDay == null) ? startDay : endDay;
+        Month month = endMonth == null ? startMonth : endMonth;
+        LocalDate localDate = LocalDate.of(year.getValue(), month, day);
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date[] getDateRange() {
-        return new Date[]{startDate, endDate};
-    }
 }

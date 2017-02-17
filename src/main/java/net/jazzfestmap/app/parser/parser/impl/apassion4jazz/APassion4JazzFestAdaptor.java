@@ -1,9 +1,11 @@
 package net.jazzfestmap.app.parser.parser.impl.apassion4jazz;
 
 import net.jazzfestmap.app.parser.api.City;
+import net.jazzfestmap.app.parser.api.DateType;
 import net.jazzfestmap.app.parser.api.Festival;
 import net.jazzfestmap.app.parser.parser.FestivalAdaptor;
 import net.jazzfestmap.app.parser.parser.HtmlFestival;
+import net.jazzfestmap.app.parser.parser.InvalidFestivalFormatException;
 import net.jazzfestmap.app.parser.parser.data.JazzFestival;
 import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.date.*;
 import net.jazzfestmap.app.parser.parser.impl.apassion4jazz.location.*;
@@ -21,7 +23,7 @@ public class APassion4JazzFestAdaptor implements FestivalAdaptor {
 
 
     @Override
-    public Festival convert(HtmlFestival htmlFestival) {
+    public Festival convert(HtmlFestival htmlFestival) throws InvalidFestivalFormatException {
         JazzFestival festival = new JazzFestival();
         try {
 
@@ -31,15 +33,14 @@ public class APassion4JazzFestAdaptor implements FestivalAdaptor {
             DateRange dates = parseDateString(htmlFestival.getDates(), htmlFestival.getHeldMonth(), htmlFestival.getHeldYear());
             festival.setStartDate(dates.getStartDate());
             festival.setEndDate(dates.getEndDate());
+            festival.setDateType(dates.getDateType() == null ? DateType.NORMAL : dates.getDateType());
             festival.setCities(parseLocationString(htmlFestival.getLocation()));
 
             return festival;
         } catch (UnsupportedLocationStrTypeException e) {
-            e.printStackTrace();
-            return festival;
+            throw new InvalidFestivalFormatException(festival.toString());
         } catch (UnsupportedDateStrTypeException e) {
-            e.printStackTrace();
-            return festival;
+            throw new InvalidFestivalFormatException(festival.toString());
         }
     }
 
@@ -52,6 +53,6 @@ public class APassion4JazzFestAdaptor implements FestivalAdaptor {
     private DateRange parseDateString(String dates, String month, String year) throws UnsupportedDateStrTypeException {
         DateStrType dateStrType = dateStrTypeDetector.detect(dates);
         DateStrParser parser = DateStrParserFactory.createParser(dateStrType);
-        return parser.parse(dates, month, year);
+        return parser.parse(dates, month.toUpperCase(), year);
     }
 }
