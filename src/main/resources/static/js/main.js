@@ -1,7 +1,9 @@
 var map;
 function initMap() {
+    var latlng = new google.maps.LatLng(51, 20);	 // примерный центр Европы
+
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
+        center: latlng,
+        zoom: 4
     });
 }
