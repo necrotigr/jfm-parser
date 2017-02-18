@@ -1,7 +1,9 @@
 package net.jazzfestmap.app.parser.controllers;
 
 import net.jazzfestmap.app.parser.dao.entities.FestivalEntity;
+import net.jazzfestmap.app.parser.dao.entities.SimpleFestivalEntity;
 import net.jazzfestmap.app.parser.dao.repositories.FestivalRepository;
+import net.jazzfestmap.app.parser.dao.repositories.SimpleFestivalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +23,7 @@ import java.util.Collection;
 public class FestAPIController {
 
     @Autowired
-    private FestivalRepository festivalRepository;
+    private SimpleFestivalRepository festivalRepository;
 
     /**
      *
@@ -30,15 +32,15 @@ public class FestAPIController {
     @RequestMapping("get/all")
     Iterable<Festival> getAll() {
         Collection<Festival> festivals = new ArrayList<>();
-        for (FestivalEntity festivalEntity : festivalRepository.findAll()) {
+        for (SimpleFestivalEntity festivalEntity : festivalRepository.findAll()) {
             festivals.add(festivalEntity);
         }
 
         return festivals;
     }
 
-    @RequestMapping("get/pending")
-    Iterable<Festival> getPending() {
+    @RequestMapping("get/actual")
+    Iterable<Festival> getActual() {
         return getAll();
     }
 
