@@ -1,5 +1,6 @@
 package net.jazzfestmap.app.parser.dao.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.jazzfestmap.app.parser.api.City;
 import net.jazzfestmap.app.parser.api.DateType;
 import net.jazzfestmap.app.parser.api.Festival;
@@ -126,6 +127,8 @@ public class SimpleFestivalEntity implements Festival {
         return name;
     }
 
+    @JsonIgnore
+    @Transient
     @Override
     public Collection<City> getCities() {
         FestCity festCity = new FestCity();
@@ -133,6 +136,7 @@ public class SimpleFestivalEntity implements Festival {
         return Collections.singletonList(festCity);
     }
 
+    @JsonIgnore
     @Override
     public DateType getDateType() {
         return dateType;
