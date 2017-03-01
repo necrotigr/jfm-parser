@@ -1,4 +1,5 @@
 var map;
+var data;
 function initMap() {
     var latlng = new google.maps.LatLng(51, 20);	 // примерный центр Европы
 
@@ -10,9 +11,19 @@ function initMap() {
 
 fetch('/api/get/actual')
     .then(function(response) {
-        return response.json()
-    }).then(function(json) {
-    console.log('parsed json', json)
+        return response.json();
+    }).then(function(data) {
+    data.forEach(function(item) {
+        var latLng = {lat: item.lat, lng: item.lon};
+        //var festUrl = "<a href='" + item.url + "'>" + item.name + "</a>";
+        var festUrl = item.name;
+        var marker = new google.maps.Marker({
+            position: latLng,
+            title: festUrl + '\n' + item.city + ', ' + item.country
+        });
+        marker.setMap(map);
+    });
+
 }).catch(function(ex) {
     console.log('parsing failed', ex)
 });
