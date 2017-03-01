@@ -44,6 +44,12 @@ public class SimpleFestivalEntity implements Festival {
     @Basic
     private String country;
 
+    @Basic
+    private Double lat;
+
+    @Basic
+    private Double lon;
+
     public SimpleFestivalEntity() {
     }
 
@@ -66,6 +72,22 @@ public class SimpleFestivalEntity implements Festival {
         return new SimpleFestivalEntity(festival.getName(), festival.getUrl(),
                 new Timestamp(festival.getStartDate().getTime()), new Timestamp(festival.getEndDate().getTime()),
                 city.getName(), city.getCountry().getName(), festival.getDateType());
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
     }
 
     public String getCity() {

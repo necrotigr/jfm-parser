@@ -39,6 +39,10 @@ public class FestAPIController {
         return festivals;
     }
 
+    /**
+     *
+     * @return только те фестивали, которые проходят в настоящее время или будут проходить в будущем
+     */
     @RequestMapping("get/actual")
     Iterable<Festival> getActual() {
         return getAll();
