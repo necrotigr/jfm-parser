@@ -33,7 +33,8 @@ public class FestAPIController {
     Iterable<Festival> getAll() {
         Collection<Festival> festivals = new ArrayList<>();
         for (SimpleFestivalEntity festivalEntity : festivalRepository.findAll()) {
-            festivals.add(festivalEntity);
+            if ( (festivalEntity.getLat() != null) && (festivalEntity.getLon() != null) )
+                festivals.add(festivalEntity);
         }
 
         return festivals;
