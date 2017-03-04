@@ -1,15 +1,14 @@
 package net.jazzfestmap.app.parser.controllers;
 
-import net.jazzfestmap.app.parser.dao.entities.FestivalEntity;
+import net.jazzfestmap.app.parser.api.Festival;
 import net.jazzfestmap.app.parser.dao.entities.SimpleFestivalEntity;
-import net.jazzfestmap.app.parser.dao.repositories.FestivalRepository;
 import net.jazzfestmap.app.parser.dao.repositories.SimpleFestivalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import net.jazzfestmap.app.parser.api.Festival;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -46,11 +45,17 @@ public class FestAPIController {
      */
     @RequestMapping("get/actual")
     Iterable<Festival> getActual() {
-        return getAll();
+        return festivalRepository.findActual();
     }
 
     @RequestMapping("get/date")
-    Iterable<Festival> getFestivalsByDate(@RequestParam String from, @RequestParam String to) {
-        return getAll();
+    Iterable<Festival> getFestivalsByDate(@RequestParam(required = false) Long from,
+                                          @RequestParam(required = false) Long to) {
+        Timestamp start = (from == null) ? new Timestamp(System.currentTimeMillis()) : new Timestamp(from);
+        Timestamp end = (to == null) ? null : new Timestamp(to);
+        if (end == null)
+            return festivalRepository.findByStartDate(start);
+        else
+            return festivalRepository.findByStartEndDate(start, end);
     }
 }
