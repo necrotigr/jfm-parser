@@ -8,10 +8,18 @@ function initMap() {
         zoom: 4
     });
 }
+
 function getLabel(item) {
     return "<p><a href='" + item.url + "'>" + item.name + "</a></p>"
         + "<p>" + item.city + ', ' + item.country + "</p>"
-        + "<p>" + formatDate(item.startDate) + ' - ' + formatDate(item.endDate) + "</p>";
+        + getDateStr(item);
+}
+
+function getDateStr(item) {
+    if (item.startDate != item.endDate)
+        return  "<p>" + formatDate(item.startDate) + ' - ' + formatDate(item.endDate) + "</p>";
+    else
+        return  "<p>" + formatDate(item.startDate) + "</p>";
 }
 
 function formatDate(dateStr) {
