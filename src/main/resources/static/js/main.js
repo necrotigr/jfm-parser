@@ -8,6 +8,17 @@ function initMap() {
         zoom: 4
     });
 }
+function getLabel(item) {
+    return "<p><a href='" + item.url + "'>" + item.name + "</a></p>"
+        + "<p>" + item.city + ', ' + item.country + "</p>"
+        + "<p>" + formatDate(item.startDate) + ' - ' + formatDate(item.endDate) + "</p>";
+}
+
+function formatDate(dateStr) {
+    var t = new Date( dateStr );
+    var formatted = t.toLocaleFormat("%d %b %Y");
+    return formatted;
+}
 
 fetch('/api/get/actual')
     .then(function(response) {
@@ -19,9 +30,17 @@ fetch('/api/get/actual')
         var festUrl = item.name;
         var marker = new google.maps.Marker({
             position: latLng,
-            title: festUrl + '\n' + item.city + ', ' + item.country
+            title: festUrl + '\n' + item.city + ', ' + item.country,
+            content: getLabel(item)
+        });
+        cityBalloon = new google.maps.InfoWindow({
         });
         marker.setMap(map);
+        marker.addListener('click', function() {
+            cityBalloon.setContent(marker.content);
+            cityBalloon.open(map, marker);
+        });
+
     });
 
 }).catch(function(ex) {
