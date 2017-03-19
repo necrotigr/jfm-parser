@@ -1,11 +1,16 @@
 var map;
 var data;
 function initMap() {
-    var latlng = new google.maps.LatLng(51, 20);	 // примерный центр Европы
+    var centerEurope = new google.maps.LatLng(51, 20);	 // примерный центр Европы
+    var centerWorld = new google.maps.LatLng(15, 20);
+    var zoomEurope = 4;
+    var zoomWorld = 3;
+    var latlng = centerWorld;
+    var zoom = zoomWorld;
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
-        zoom: 4
+        zoom: zoom
     });
 }
 
@@ -67,13 +72,14 @@ fetch('/api/get/actual')
     .then(function(response) {
         return response.json();
     }).then(function(data) {
+    var allBounds =  new google.maps.LatLngBounds();
+
     data.forEach(function(item) {
         var latLng = {lat: item.lat, lng: item.lon};
-        //var festUrl = "<a href='" + item.url + "'>" + item.name + "</a>";
-        var festUrl = item.name;
+        var festName = item.name;
         var marker = new google.maps.Marker({
             position: latLng,
-            title: festUrl + '\n' + item.city + ', ' + item.country,
+            title: festName + '\n' + item.city + ', ' + item.country,
             content: getLabel(item),
             icon: getIconByDate(item.startDate)
         });
@@ -84,8 +90,10 @@ fetch('/api/get/actual')
             cityBalloon.setContent(marker.content);
             cityBalloon.open(map, marker);
         });
-
+        allBounds.extend(marker.getPosition());
     });
+    //map.fitBounds(allBounds);
+    //map.setCenter(allBounds.getCenter());
 
 }).catch(function(ex) {
     console.log('parsing failed', ex)
