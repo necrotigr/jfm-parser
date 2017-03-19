@@ -7,9 +7,11 @@ import net.jazzfestmap.app.parser.dao.repositories.SimpleFestivalRepository;
 import net.jazzfestmap.app.parser.parser.HtmlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 /**
@@ -18,6 +20,8 @@ import java.util.Collection;
  */
 @Service
 public class SaverService {
+
+    public static final String APASSION4JAZZ_URL = "https://www.apassion4jazz.net/festivals-%d.html";
 
     @Autowired
     @Qualifier("aPassion4JazzParser")
@@ -67,5 +71,11 @@ public class SaverService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Scheduled(cron = "0 0 12 1/1 * ? *")
+    public void runFetch() {
+        System.out.println("Fetch started at " + new Timestamp(System.currentTimeMillis()));
+        this.fetchAndSave(APASSION4JAZZ_URL, 0);
     }
 }

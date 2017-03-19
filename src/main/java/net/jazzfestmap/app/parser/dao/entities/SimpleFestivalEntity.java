@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
  * Created by Сергей on 28.06.2015.
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "url", "startDate", "endDate"}))
 public class SimpleFestivalEntity implements Festival {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +40,10 @@ public class SimpleFestivalEntity implements Festival {
 
     @Basic
     private DateType dateType;
+
     @Basic
     private String city;
+
     @Basic
     private String country;
 

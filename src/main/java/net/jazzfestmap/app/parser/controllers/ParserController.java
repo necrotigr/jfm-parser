@@ -25,7 +25,7 @@ public class ParserController {
     @RequestMapping("parse")
     @ResponseBody
     String parseNew(@RequestParam(required = false) Integer month) {
-        String urlTemplate = "https://www.apassion4jazz.net/festivals-%d.html";
+        String urlTemplate = SaverService.APASSION4JAZZ_URL;
         if (month == null)
             month = 0;
         saverService.fetchAndSave(urlTemplate, month);
