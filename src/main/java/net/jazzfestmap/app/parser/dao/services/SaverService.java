@@ -73,7 +73,7 @@ public class SaverService {
         }
     }
 
-    @Scheduled(cron = "0 0 12 1/1 * ? *")
+    @Scheduled(cron = "0 0 12 1/1 * ?")
     public void runFetch() {
         System.out.println("Fetch started at " + new Timestamp(System.currentTimeMillis()));
         this.fetchAndSave(APASSION4JAZZ_URL, 0);
