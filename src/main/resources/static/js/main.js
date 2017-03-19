@@ -9,6 +9,27 @@ function initMap() {
     });
 }
 
+/**
+ * Выдает маркер определенного цвета в зависимости от текущей даты и даты начала фестиваля
+ *
+ * По умолчанию: красный - текущий месяц, желтый - следующий месяц, синий - все остальные
+ * @param startDate
+ */
+const url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7C";
+const color_thisMonth = "FF5555";
+const color_nextMonth = "FFFF55";
+const color_further = "5555FF";
+
+function getMarkerUrl(color) {
+    return url + color;
+}
+
+function initIntro() {
+    document.getElementById('imgCurMonth').src = getMarkerUrl(color_thisMonth);
+    document.getElementById('imgNextMonth').src = getMarkerUrl(color_nextMonth);
+    document.getElementById('imgFurtherMonth').src = getMarkerUrl(color_further);
+}
+
 function getLabel(item) {
     return "<p><a href='" + item.url + "'>" + item.name + "</a></p>"
         + "<p>" + item.city + ', ' + item.country + "</p>"
@@ -28,6 +49,20 @@ function formatDate(dateStr) {
     return formatted;
 }
 
+
+
+function getIconByDate(startDate) {
+
+    var curMonth = new Date().getMonth();
+    var month = new Date(startDate).getMonth();
+    var diff = month - curMonth;
+    switch (diff) {
+        case 0: return getMarkerUrl(color_thisMonth);
+        case 1: return getMarkerUrl(color_nextMonth);
+        default: return getMarkerUrl(color_further);
+    }
+}
+
 fetch('/api/get/actual')
     .then(function(response) {
         return response.json();
@@ -39,7 +74,8 @@ fetch('/api/get/actual')
         var marker = new google.maps.Marker({
             position: latLng,
             title: festUrl + '\n' + item.city + ', ' + item.country,
-            content: getLabel(item)
+            content: getLabel(item),
+            icon: getIconByDate(item.startDate)
         });
         cityBalloon = new google.maps.InfoWindow({
         });

@@ -34,6 +34,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
+                <!--
                 <div class="form-group">
                     <input type="date" class="form-control" placeholder="From">
                 </div>
@@ -41,8 +42,13 @@
                     <input type="date" class="form-control" placeholder="To">
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
-
-                <small>&nbsp;Only upcoming and currently held festivals are shown</small>
+                -->
+                <div class="form-group">
+                    <small>Upcoming and currently held festivals are shown</small>
+                    <img id="imgCurMonth" src="" /> - current month,
+                    <img id="imgNextMonth" src="" /> - next month,
+                    <img id="imgFurtherMonth" src="" /> - further
+                </div>
             </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -50,6 +56,9 @@
 
 <!-- map -->
 <div id="map"></div>
+<script>
+    initIntro();
+</script>
 
 </body>
 </html>
